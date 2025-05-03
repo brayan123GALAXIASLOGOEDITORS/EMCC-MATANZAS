@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMCC Matanzas - Galería de Concursantes</title>
+    
+    <!-- Preconexión para mejorar performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #003366;
+            --accent-color: #e63946;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --text-color: #333;
+            --text-light: #6c757d;
+            --transition: all 0.3s ease;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            animation: entradaEpica 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            transform-style: preserve-3d;
+        }
+
+        /* Animación de entrada */
+        @keyframes entradaEpica {
+            0% { 
+                opacity: 0; 
+                transform: translateY(50px) rotateX(-30deg); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) rotateX(0); 
+            }
+        }
+
+        /* Encabezado */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: flotar 6s ease-in-out infinite;
+        }
+
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+
+        /* Galería */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) rotateX(5deg) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .card:hover .card-image img {
+            transform: scale(1.15);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .card-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Sección de próximos concursantes */
+        .upcoming {
+            text-align: center;
+            margin: 80px 0;
+            padding: 40px;
+            background: rgba(0, 86, 179, 0.05);
+            border-radius: var(--border-radius);
+            border-left: 5px solid var(--primary-color);
+            animation: aparecer 2s ease-out;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .upcoming h2 {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .pending-badge {
+            display: inline-block;
+            padding: 12px 30px;
+            background: white;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            color: var(--accent-color);
+            animation: pulse 2s infinite, latido 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(230, 57, 70, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
+        }
+
+        @keyframes latido {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+
+        /* Botones */
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            gap: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            min-width: 180px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-back {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            color: white;
+        }
+
+        .btn-next {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+        }
+
+        /* Efecto de partículas */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Efecto de partículas -->
+    <div id="particles"></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1>Galería de Concursantes</h1>
+            <p>Mejores Concursantes Curso 2023 - 2024</p>
+        </header>
+        
+        <div class="gallery">
+            <!-- Tarjeta 1 -->
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Jesús Mora Guerra">
+                </div>
+                <div class="card-content">
+                    <h3>Jesús Mora Guerra</h3>
+                    <p>Concursante de Cultura Política (1er lugar🥇)</p>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 2 -->
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Líz Marina González">
+                </div>
+                <div class="card-content">
+                    <h3>Líz Marina González</h3>
+                    <p>Concursante de Historia (2do lugar🥈)</p>
+                    <p>🗂 Cibercombatiente</p>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 3 -->
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Orel Rodríguez Córzo">
+                </div>
+                <div class="card-content">
+                    <h3>Orel Rodríguez Córzo</h3>
+                    <p>Tecnología para el Futuro</p>
+                    <p>Concursante de Informática (1er lugar🥇)</p>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 4 -->
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Kevin Solsa Alonso">
+                </div>
+                <div class="card-content">
+                    <h3>Kevin Solsa Alonso</h3>
+                    <p>Concursante de Biología</p>
+                    <p>🗂 Cibercombatiente</p>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 5 -->
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Kamila Pérez Sánchez">
+                </div>
+                <div class="card-content">
+                    <h3>Kamila Pérez Sánchez</h3>
+                    <p>Concursante de Español (2do lugar🥈)</p>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 6 -->
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Yeny Laura Díaz">
+                </div>
+                <div class="card-content">
+                    <h3>Yeny Laura Díaz</h3>
+                    <p>Concursante de Inglés</p>
+                    <p>English contestant</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sección de próximos concursantes -->
+        <div class="upcoming">
+            <h2>Mejores concursantes 2024 - 2025</h2>
+            <div class="pending-badge">
+                Pendiente: Esperando resultados
+            </div>
+        </div>
+        
+        <!-- Contenedor de botones -->
+        <div class="buttons-container">
+            <a href="index.html" class="btn btn-back">
+                <i class="fas fa-arrow-left"></i> Volver al Inicio
+            </a>
+            
+            <a href="#" class="btn btn-next">
+                Siguiente <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Script para partículas -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Inicializar partículas
+        particlesJS('particles', {
+            particles: {
+                number: { value: 70 },
+                color: { value: "#0066cc" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { 
+                    enable: true, 
+                    distance: 150, 
+                    color: "#0066cc", 
+                    opacity: 0.3, 
+                    width: 1 
+                },
+                move: { 
+                    enable: true, 
+                    speed: 2, 
+                    direction: "none", 
+                    random: true, 
+                    straight: false, 
+                    out_mode: "out" 
+                }
+            },
+            interactivity: {
+                events: {
+                    onhover: { enable: true, mode: "repulse" }
+                }
+            }
+        });
+
+        // Efecto de carga suave
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 1.2s ease-out';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
